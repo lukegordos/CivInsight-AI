@@ -11,7 +11,18 @@
 [build.environment]
   NODE_VERSION = "18.20.8"
 
-# Redirect all requests to index.html for SPA routing
+# Handle Next.js static export routing
+[[redirects]]
+  from = "/map"
+  to = "/map.html"
+  status = 200
+
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# Fallback for any other routes
 [[redirects]]
   from = "/*"
   to = "/index.html"
