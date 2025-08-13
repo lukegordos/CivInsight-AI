@@ -5,8 +5,8 @@
   # Build command
   command = "npm run build"
   
-  # Directory to publish (Next.js static export outputs to 'out')
-  publish = "frontend/out"
+  # Directory to publish (relative to base directory)
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "18.20.8"
