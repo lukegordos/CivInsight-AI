@@ -3,9 +3,12 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  distDir: '.next',
+  // Enable static export for Netlify deployment
+  output: 'export',
+  trailingSlash: true,
+  distDir: 'out',
   images: {
-    domains: ['civinsight-media.s3.amazonaws.com', 'localhost'],
+    unoptimized: true, // Required for static export
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1',

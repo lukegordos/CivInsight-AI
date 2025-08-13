@@ -1,0 +1,18 @@
+[build]
+  # Base directory for the build
+  base = "frontend"
+  
+  # Build command
+  command = "npm run build"
+  
+  # Directory to publish (Next.js static export outputs to 'out')
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirect all requests to index.html for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
