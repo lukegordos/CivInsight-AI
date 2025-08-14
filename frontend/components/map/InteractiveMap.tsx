@@ -81,25 +81,11 @@ export default function InteractiveMap({ issues }: MapProps) {
         // Wait for tiles to load, then add markers
         setTimeout(() => {
           if (isMounted && mapInstance.current) {
-            console.log('Adding test marker...');
-            
-            // Add big red test marker
-            const testMarker = L.circleMarker([40.7128, -74.0060], {
-              radius: 30,
-              fillColor: '#ff0000',
-              color: '#ffffff',
-              weight: 4,
-              opacity: 1,
-              fillOpacity: 1,
-            });
-            testMarker.addTo(map);
-            testMarker.bindPopup('🔴 BIG TEST MARKER');
-            testMarker.openPopup();
-            console.log('✅ Test marker added');
+            console.log('Adding issue markers...');
 
             // Add issue markers
             if (issues && issues.length > 0) {
-              console.log('Adding issue markers...');
+              console.log(`Adding ${issues.length} issue markers...`);
               
               issues.forEach((issue, index) => {
                 if (issue.lat && issue.lng && !isNaN(issue.lat) && !isNaN(issue.lng)) {

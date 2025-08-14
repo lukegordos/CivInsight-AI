@@ -73,6 +73,12 @@ export default function MapPage() {
               <Link href="/map" className="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
                 Interactive Map
               </Link>
+              <Link href="/analytics" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                Analytics
+              </Link>
+              <Link href="/reports" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                Reports
+              </Link>
             </nav>
           </div>
         </div>
