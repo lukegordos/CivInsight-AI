@@ -7,6 +7,13 @@ const nextConfig = {
   images: {
     unoptimized: true, // Required for static export
   },
+  // Force inline CSS to ensure styles load on Netlify
+  experimental: {
+    cssChunking: 'strict',
+  },
+  compiler: {
+    removeConsole: false, // Keep console logs for debugging
+  },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1',
     NEXT_PUBLIC_MAPBOX_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
