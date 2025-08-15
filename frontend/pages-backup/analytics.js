@@ -1,10 +1,6 @@
-import Navigation from '../components/Navigation'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function AnalyticsPage() {
-  const [isExporting, setIsExporting] = useState(false)
-  
   // Mock data for demonstration
   const analyticsData = {
     totalIssues: 1247,
@@ -35,43 +31,45 @@ export default function AnalyticsPage() {
     ]
   }
 
-  const handleExportData = async () => {
-    setIsExporting(true)
-    try {
-      // Simulate export process
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Create CSV data
-      const csvData = [
-        ['Category', 'Count', 'Percentage'],
-        ...analyticsData.topCategories.map(item => [item.category, item.count, item.percentage])
-      ]
-      
-      const csvContent = csvData.map(row => row.join(',')).join('\n')
-      const blob = new Blob([csvContent], { type: 'text/csv' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `civinsight-analytics-${new Date().toISOString().split('T')[0]}.csv`
-      a.click()
-      window.URL.revokeObjectURL(url)
-    } catch (error) {
-      console.error('Export failed:', error)
-      alert('Export failed. Please try again.')
-    } finally {
-      setIsExporting(false)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-      
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-xl">CI</span>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">CivInsight AI</h1>
+                <p className="text-gray-600">Analytics Dashboard</p>
+              </div>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                Home
+              </Link>
+              <Link href="/map" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                Interactive Map
+              </Link>
+              <Link href="/analytics" className="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
+                Analytics
+              </Link>
+              <Link href="/reports" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                Reports
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Analytics Dashboard
-          </h1>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            📊 Analytics Dashboard
+          </h2>
           <p className="text-gray-600">
             Comprehensive insights and trends from NYC 311 civic data
           </p>
@@ -79,51 +77,51 @@ export default function AnalyticsPage() {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white shadow-lg p-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Total Issues</p>
                 <p className="text-3xl font-bold text-blue-600">{analyticsData.totalIssues.toLocaleString()}</p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-blue-600 rounded"></div>
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                <span className="text-blue-600 text-xl">📈</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white shadow-lg p-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Resolved</p>
                 <p className="text-3xl font-bold text-green-600">{analyticsData.resolvedIssues.toLocaleString()}</p>
                 <p className="text-green-600 text-sm">{Math.round((analyticsData.resolvedIssues / analyticsData.totalIssues) * 100)}% completion</p>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-green-600 rounded"></div>
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                <span className="text-green-600 text-xl">✅</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white shadow-lg p-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Pending</p>
                 <p className="text-3xl font-bold text-orange-600">{analyticsData.pendingIssues.toLocaleString()}</p>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-orange-600 rounded"></div>
+              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                <span className="text-orange-600 text-xl">⏳</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white shadow-lg p-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Avg Response</p>
                 <p className="text-3xl font-bold text-purple-600">{analyticsData.averageResponseTime}</p>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-purple-600 rounded"></div>
+              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                <span className="text-purple-600 text-xl">⚡</span>
               </div>
             </div>
           </div>
@@ -132,7 +130,7 @@ export default function AnalyticsPage() {
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Category Breakdown */}
-          <div className="bg-white shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
             <h3 className="text-xl font-semibold text-gray-900 mb-6">Issues by Category</h3>
             <div className="space-y-4">
               {analyticsData.topCategories.map((item, index) => (
@@ -156,7 +154,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Borough Performance */}
-          <div className="bg-white shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
             <h3 className="text-xl font-semibold text-gray-900 mb-6">Borough Performance</h3>
             <div className="space-y-4">
               {analyticsData.boroughData.map((borough, index) => (
@@ -182,7 +180,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Monthly Trends */}
-        <div className="bg-white shadow-lg p-8 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 mb-8">
           <h3 className="text-xl font-semibold text-gray-900 mb-6">Monthly Trends</h3>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             {analyticsData.monthlyTrends.map((month, index) => (
@@ -191,7 +189,7 @@ export default function AnalyticsPage() {
                   <div className="text-white font-bold text-lg">{month.issues}</div>
                   <div className="text-blue-100 text-xs">Issues</div>
                   <div className="absolute top-1 right-1 text-green-300 text-xs">
-                    {month.resolved}
+                    {month.resolved}✓
                   </div>
                 </div>
                 <div className="text-gray-600 font-medium">{month.month}</div>
@@ -201,26 +199,20 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 shadow-lg p-8 text-white">
+        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 rounded-2xl shadow-lg p-8 text-white">
           <h3 className="text-2xl font-bold mb-4">Quick Actions</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/reports" className="bg-white bg-opacity-20 rounded-lg p-4 hover:bg-opacity-30 transition-all">
-              <div className="text-lg font-semibold mb-2">Generate Report</div>
+            <Link href="/reports" className="bg-white bg-opacity-20 rounded-xl p-4 hover:bg-opacity-30 transition-all">
+              <div className="text-lg font-semibold mb-2">📝 Generate Report</div>
               <div className="text-blue-100 text-sm">Create detailed analytics reports</div>
             </Link>
-            <Link href="/map" className="bg-white bg-opacity-20 rounded-lg p-4 hover:bg-opacity-30 transition-all">
-              <div className="text-lg font-semibold mb-2">View Map</div>
+            <Link href="/map" className="bg-white bg-opacity-20 rounded-xl p-4 hover:bg-opacity-30 transition-all">
+              <div className="text-lg font-semibold mb-2">🗺️ View Map</div>
               <div className="text-blue-100 text-sm">Explore geographic distribution</div>
             </Link>
-            <button 
-              onClick={handleExportData}
-              disabled={isExporting}
-              className="bg-white bg-opacity-20 rounded-lg p-4 hover:bg-opacity-30 transition-all text-left disabled:opacity-50"
-            >
-              <div className="text-lg font-semibold mb-2">
-                {isExporting ? 'Exporting...' : 'Export Data'}
-              </div>
-              <div className="text-blue-100 text-sm">Download analytics data as CSV</div>
+            <button className="bg-white bg-opacity-20 rounded-xl p-4 hover:bg-opacity-30 transition-all text-left">
+              <div className="text-lg font-semibold mb-2">📊 Export Data</div>
+              <div className="text-blue-100 text-sm">Download analytics data</div>
             </button>
           </div>
         </div>

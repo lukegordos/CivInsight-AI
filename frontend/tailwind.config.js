@@ -4,10 +4,12 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
     './styles/**/*.{css,scss}',
   ],
   mode: 'jit',
-  purge: false, // Disable purging to ensure all classes are included
+  // Only disable purging in production, allow it in development
+  purge: process.env.NODE_ENV === 'production' ? false : undefined,
   safelist: [
     // Force include ALL classes to ensure styling works on Netlify
     {
@@ -36,6 +38,9 @@ module.exports = {
     'max-w-7xl',
     'mx-auto',
     'bg-gradient-to-br',
+    'from-purple-50',
+    'via-blue-50',
+    'to-indigo-100',
     'from-blue-50',
     'via-white', 
     'to-indigo-50',

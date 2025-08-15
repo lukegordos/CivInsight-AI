@@ -1,23 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable static export for Netlify deployment
+  reactStrictMode: true,
+  swcMinify: true,
+  pageExtensions: ['js', 'jsx'],
   output: 'export',
-  trailingSlash: true,
-  distDir: 'out',
   images: {
-    unoptimized: true, // Required for static export
-  },
-  // Force inline CSS to ensure styles load on Netlify
-  experimental: {
-    cssChunking: 'strict',
-  },
-  compiler: {
-    removeConsole: false, // Keep console logs for debugging
-  },
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1',
-    NEXT_PUBLIC_MAPBOX_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
-    NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000',
+    unoptimized: true
   }
 }
 
